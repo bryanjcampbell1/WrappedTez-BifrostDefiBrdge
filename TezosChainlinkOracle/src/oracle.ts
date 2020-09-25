@@ -122,7 +122,7 @@ async function processRequest(signer: Signer, keyStore: KeyStore, request: Oracl
     //cut off first 4 chars so less than 32 bytes
     const val = TezosMessageUtils.readPackedData( request.params, "address").toString().slice(4);
 
-    const web3 = new Web3('https://rinkeby.infura.io/v3/**********************');
+    const web3 = new Web3('https://rinkeby.infura.io/v3/ed09c851cd06475aba678fdb5e84a15c');
 
     const myContract = (new web3.eth.Contract(abi, contractAddress) as any) as Bxtz
 

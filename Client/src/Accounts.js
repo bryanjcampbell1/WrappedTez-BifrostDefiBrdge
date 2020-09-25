@@ -4,6 +4,8 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 import { ThanosWallet } from "@thanos-wallet/dapp";
+import getWeb3 from "./getWeb3";
+
 
 const unlockTezosWallet = () =>
     (async () => {
@@ -35,6 +37,25 @@ const unlockTezosWallet = () =>
 
     })();
 
+    const unlockEthWallet = () =>
+    (async () => {
+    
+        try {
+          // Get network provider and web3 instance.
+          const web3 = await getWeb3();
+    
+          // Use web3 to get the user's accounts.
+          const accounts = await web3.eth.getAccounts();
+    
+        } catch (error) {
+          // Catch any errors for any of the above operations.
+          alert(
+            `Failed to load web3, accounts, or contract. Check console for details.`,
+          );
+          console.error(error);
+        }
+    })();
+
 
     
 
@@ -49,7 +70,7 @@ function Accounts() {
                         <Button onClick={unlockTezosWallet} variant="info" style={{width:150}}>Tezos Login</Button>
                     </Row>
                     <Row style={{marginTop:10}}>
-                        <Button variant="info" style={{width:150}}>Ethereum Login</Button>
+                        <Button onClick={unlockEthWallet}variant="info" style={{width:150}}>Ethereum Login</Button>
                     </Row>
                 </Col>
             </Row>
