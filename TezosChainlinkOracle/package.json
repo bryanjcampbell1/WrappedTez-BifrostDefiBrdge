@@ -1,0 +1,33 @@
+{
+    "name": "chainlink-tezod-example",
+    "version": "0.0.1",
+    "description": "Chainlink examples for Tezos with ConseilJS & SmartPy",
+    "scripts": {
+        "postinstall": "npm run build",
+        "build": "tsc",
+        "deploy": "node dist/initialize.js",
+        "oracle": "node dist/oracle.js",
+        "client": "node dist/client.js",
+        "token": "node dist/token.js"
+    },
+    "license": "UNLICENSED",
+    "engines": {
+        "node": ">=12.18.x",
+        "npm": ">=6.16.x"
+    },
+    "homepage": "https://gist.github.com/anonymoussprocket",
+    "dependencies": {
+        "conseiljs": "5.0.5-beta.2",
+        "conseiljs-softsigner": "5.0.3",
+        "jsonpath-plus": "4.0.0",
+        "loglevel": "1.6.8",
+        "node-fetch": "2.6.0",
+        "typechain-target-web3-v1": "^1.0.4",
+        "web3": "^1.3.0"
+    },
+    "devDependencies": {
+        "@typechain/web3-v1": "^1.0.0",
+        "typechain": "^2.0.0",
+        "typescript": "3.8.3"
+    }
+}

@@ -1,0 +1,70 @@
+{
+    "config": {
+        "tezosNode": "https://tezos-dev.cryptonomic-infra.tech:443",
+        "conseilURL": "https://conseil-dev.cryptonomic-infra.tech:443",
+        "conseilApiKey": "7171c877-902b-422d-8e59-21412ccc5478",
+        "conseilNetwork": "carthagenet",
+        "networkBlockTime": 31
+    },
+    "oracleAdmin": {
+        "mnemonic": [
+            "small",
+            "deer",
+            "great",
+            "try",
+            "menu",
+            "glass",
+            "flavor",
+            "quote",
+            "tube",
+            "twin",
+            "luxury",
+            "stuff",
+            "vault",
+            "now",
+            "exact"
+        ],
+        "secret": "99283aa6f340fda13d6a7792b3b591b7d8c1bfd7",
+        "amount": "1956264731",
+        "pkh": "tz1Phqq57HZMs6dymXFPcd7yDfKaxurBpYWR",
+        "password": "L0pFSztF29",
+        "email": "nyhwprat.umdeueyg@tezos.example.org",
+        "secretKey": "edskS35qHqZ62hkT2Fk1dcf9eHsw9Kzk3yZDSVWFSm4CnvtGKBzAVxj5rEPTvHytyDYjhP2dQ9F8VHcGmBYb7Xw7NtUve8X3DX"
+    },
+    "oracleUserAlice": {
+        "mnemonic": [
+            "autumn",
+            "state",
+            "accident",
+            "girl",
+            "elbow",
+            "stage",
+            "glad",
+            "moon",
+            "left",
+            "chief",
+            "income",
+            "uphold",
+            "grain",
+            "couch",
+            "moment"
+        ],
+        "secret": "2e7d8239f551cf60545d6c42641cd79523b9c20b",
+        "amount": "283484572728",
+        "pkh": "tz1RUwvTEyizhxRuVDumsGGXnmbiSVhoB2dd",
+        "password": "yrusiNMQxX",
+        "email": "lygufhbb.ydpbriqi@tezos.example.org",
+        "secretKey": "edskS1Yb3MJpxqVZHtkzBjAqFxBpLTiDt942hyMCXsoBjBT6ACnkBAwcDFVR9ugF6GBqYCFu5pqb4DG7oMcj2AdPRbF2x5R6Nb"
+    },
+    "tokenAddress": "KT1TQR3eyYCytqBK9EB28J1taa2cX41F9R8x",
+    "faucetAddress": "KT1JWENqDEoGasUty7m22QBPk6gfau8H4VQS",
+    "oracleAddress": "KT1TS62qKUsfGahjjfvvXeu1j5vo52PHEFqu",
+    "clientAddress": "KT192uQ2Cjhr3Hgnf8438p3DxwhpdFrMTGyJ",
+    "oracleData": [
+        "A beautiful, smart, and loving person will be coming into your life",
+        "A dubious friend may be an enemy in camouflage",
+        "A faithful friend is a strong defense",
+        "A feather in the hand is better than a bird in the air",
+        "A fresh start will put you on your way"
+    ]
+}
