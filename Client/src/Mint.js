@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ABI from './Contract/BiFrost';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Mint = ({ethWallet, txzWallet}) => {
 
@@ -14,6 +15,7 @@ const Mint = ({ethWallet, txzWallet}) => {
     const [web3, setWeb3] = useState();
     const [tezosContract, setTezosContract] = useState();
     const [ethereumContract, setEthereumContract] = useState()
+	const [loader, setLoader] = useState(false);
 
     useEffect(() => {
         setupAccounts();
@@ -58,22 +60,26 @@ const Mint = ({ethWallet, txzWallet}) => {
     }
 
     const callDepositEntryPoint = async() => {
+		setLoader(true);
         try {  
             const operation = await tezosContract.methods.deposit(whitelistedEthAddress.toLowerCase()).send({ amount: depositAmount });
             await operation.confirmation();
         } catch (err) {
             console.error(err);
-        }
+		}
+		setLoader(false);
         setStep(2);
     }
 
     const callMintTokens = async() => {
+		setLoader(true);
         try {
             const operation = await ethereumContract.methods.requestIfAddressWhitelisted().send({from:accounts[0]});
             console.log(operation);
         } catch(err) {
             console.error(err);
-        }
+		}
+		setLoader(false);
     }
 
     const box1 = {
@@ -105,7 +111,7 @@ const Mint = ({ethWallet, txzWallet}) => {
                 <Form.Control  placeholder={ethereumAddress} readOnly/>
             </Form.Group>
         </Form>
-        {(step ===1) ?
+        {(step ===1) ? loader ? <CircularProgress/> :
             <div style={{width:'100%', marginTop:30}}>
                 <div>
                     <Button onClick={() => callDepositEntryPoint()} variant="info"  size="lg" style={{width:'50%'}}>
@@ -119,7 +125,7 @@ const Mint = ({ethWallet, txzWallet}) => {
                 </div>
 
             </div>
-            :
+            : loader ? <CircularProgress/> :
             <div style={{width:'100%', marginTop:30}}>
                 <div>
                     <Button variant="outline-light" size="lg" style={{width:'50%'}} disabled>

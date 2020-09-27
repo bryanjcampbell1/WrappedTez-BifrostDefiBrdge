@@ -223,13 +223,21 @@ class Client(sp.Contract, Client_requester, Client_receiver):
     def deposit(self, params):
         sp.verify(sp.amount > sp.mutez(0), message = "Deposit too low")
         
-        coins = sp.ediv(sp.amount, sp.tez(1))
-        sp.if ( coins.is_some() ):
-            bal = sp.fst(coins.open_some())
+        contractbal = sp.ediv(sp.balance, sp.tez(1))
+        
+        sp.if (contractbal.is_some() ):
+            bal = sp.fst(contractbal.open_some())
             
-            #bal needs to reflect previously baked earnings 
-            self.data.depositBalances[params] = bal
-            self.data.totalTokens += bal
+            val = sp.split_tokens( sp.amount, self.data.totalTokens, bal)
+            
+            _natVal = sp.ediv(val, sp.tez(1))
+            
+        
+            sp.if (_natVal.is_some() ):
+                natVal = sp.fst(_natVal.open_some())
+                
+                self.data.withdrawBalances[params] = sp.to_int(natVal)
+                self.data.totalTokens += natVal
             
     @sp.entry_point
     def withdraw(self, params): 

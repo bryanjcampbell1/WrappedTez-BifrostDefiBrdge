@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ABI from './Contract/BiFrost';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Burn = ({ethWallet, txzWallet}) => {
 
@@ -14,6 +15,7 @@ const Burn = ({ethWallet, txzWallet}) => {
     const [web3, setWeb3] = useState();
     const [tezosContract, setTezosContract] = useState();
     const [ethereumContract, setEthereumContract] = useState()
+	const [loader, setLoader] = useState(false);
 
     useEffect(() => {
         setupAccounts();
@@ -58,16 +60,19 @@ const Burn = ({ethWallet, txzWallet}) => {
     }
 
     const burn = async() => {
+		setLoader(true);
         try {
             const operation = await ethereumContract.methods.requestBurnToken(tezosAddress, depositAmount).send({from:accounts[0]});
             console.log(operation);
         } catch(err) {
             console.error(err);
         }
-        setStep(2);
+		setStep(2);
+		setLoader(false);
     }
 
     const approve = async() => {
+		setLoader(true);
         try {  
             const operation = await tezosContract.methods.request_fortune(1,10).send();
             await operation.confirmation();
@@ -75,17 +80,20 @@ const Burn = ({ethWallet, txzWallet}) => {
         } catch (err) {
             console.error(err);
         }
-        setStep(3);
+		setStep(3);
+		setLoader(false);
     }
 
     const withdraw = async() => {
+		setLoader(true);
         try {  
             const operation = await tezosContract.methods.withdraw(depositAmount/1.5).send();
             await operation.confirmation();
         } catch (err) {
             console.error(err);
         }
-        setStep(1);
+		setStep(1);
+		setLoader(false);
     }
 
     const box1 = {
@@ -120,7 +128,7 @@ const Burn = ({ethWallet, txzWallet}) => {
             <div style={{width:'100%', marginTop:30}}>
             
                 <div>
-                    {(step ===1) ?
+                    {(step ===1) ? loader ? <CircularProgress/> :
                         <Button onClick={() => burn()} variant="info"  size="lg" style={{width:'50%'}}>
                             Burn bXTZ
                         </Button>
@@ -131,7 +139,7 @@ const Burn = ({ethWallet, txzWallet}) => {
                     }
                 </div>
                 <div style={{marginTop: 20}}>
-                    {(step ===2) ?
+                    {(step ===2) ? loader ? <CircularProgress/> :
                         <Button onClick={() => approve()} variant="info"  size="lg" style={{width:'50%'}}>
                             Approve
                         </Button>
@@ -142,7 +150,7 @@ const Burn = ({ethWallet, txzWallet}) => {
                     }
                 </div>
                 <div style={{marginTop: 20}}>
-                    {(step ===3) ?
+                    {(step ===3) ? loader ? <CircularProgress/> :
                         <Button onClick={() => withdraw()}  variant="info"  size="lg" style={{width:'50%'}}>
                             Withdraw XTZ
                         </Button>

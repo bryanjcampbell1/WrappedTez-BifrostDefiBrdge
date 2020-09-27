@@ -6,76 +6,89 @@ import Button from "react-bootstrap/Button";
 import { ThanosWallet } from "@thanos-wallet/dapp";
 import getWeb3 from "./getWeb3";
 
+    
 
-const unlockTezosWallet = () =>
-    (async () => {
-    try {
-        const available = await ThanosWallet.isAvailable();
-        if (!available) {
-        throw new Error("Thanos Wallet not installed");
+
+class Accounts extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            step: 1,
+            whitelistedEthAddress: '',
+            depositAmount: 0,
+            tezosAddress:'Unlock Wallet',
+            ethereumAddress:'Unlock Wallet',
+            web3: null, 
+            accounts: null,
+    
         }
-
-        const wallet = new ThanosWallet("Bifrost Baker");
-        await wallet.connect("carthagenet");
-        const tezos = wallet.toTezos();
-
-        const accountPkh = await tezos.wallet.pkh();
-        const accountBalance = await tezos.tz.getBalance(accountPkh);
-
-        console.info(`address: ${accountPkh}, balance: ${accountBalance}`);
-
-        const bifrost = await tezos.wallet.at(
-            "KT1S94kmkfLx5whkDSk5QaJ539z32rBLqxra"
-            );   
-
-        const operation = await bifrost.methods.deposit("0x830c5D312D507DdB066192d34dD6441737e127C8").send({ amount: 50 });
-        await operation.confirmation();
-
-    } catch (err) {
-        console.error(err);
+        
     }
 
-    })();
-
-    const unlockEthWallet = () =>
-    (async () => {
-    
+ 
+    async unlockTezosWallet(){
         try {
-          // Get network provider and web3 instance.
-          const web3 = await getWeb3();
+            const available = await ThanosWallet.isAvailable();
+            if (!available) {
+            throw new Error("Thanos Wallet not installed");
+            }
     
-          // Use web3 to get the user's accounts.
-          const accounts = await web3.eth.getAccounts();
+            const wallet = new ThanosWallet("Bifrost Baker");
+            await wallet.connect("carthagenet");
+            const tezos = wallet.toTezos();
     
-        } catch (error) {
-          // Catch any errors for any of the above operations.
-          alert(
-            `Failed to load web3, accounts, or contract. Check console for details.`,
-          );
-          console.error(error);
+            const accountPkh = await tezos.wallet.pkh();
+            const accountBalance = await tezos.tz.getBalance(accountPkh);
+
+            this.setState({tezosAddress: accountPkh})
+    
+            console.info(`address: ${accountPkh}, balance: ${accountBalance}`);
+    
+            
+    
+        } catch (err) {
+            console.error(err);
         }
-    })();
+    }
+    async unlockEthWallet(){
 
 
+
+        console.log('yoyoy');
+        try {
+            // Get network provider and web3 instance.
+            const web3 = await getWeb3();
+            const accounts = await web3.eth.getAccounts();
+            console.log(accounts[0])
+            this.setState({ web3: web3, accounts: accounts, ethereumAddress: accounts[0] });
+          
+        } catch (error) {
+            // Catch any errors for any of the above operations.
+            alert(
+              `Failed to load web3, accounts, or contract. Check console for details.`,
+            );
+            console.error(error);
+          }
+
+    }
+    render(){
+        return (
+            <div>
+                <Row>
+                    <Col sm={4} md={9} lg={10}></Col>
+                    <Col>
+                        <Row>
+                            <Button onClick={() => this.unlockTezosWallet()} variant="info" style={{width:150}}>Tezos Login</Button>
+                        </Row>
+                        <Row style={{marginTop:10}}>
+                            <Button onClick={() => this.unlockEthWallet()}variant="info" style={{width:150}}>Ethereum Login</Button>
+                        </Row>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
     
-
-
-function Accounts() {
-    return (
-        <div>
-            <Row>
-                <Col sm={4} md={9} lg={10}></Col>
-                <Col>
-                    <Row>
-                        <Button onClick={unlockTezosWallet} variant="info" style={{width:150}}>Tezos Login</Button>
-                    </Row>
-                    <Row style={{marginTop:10}}>
-                        <Button onClick={unlockEthWallet}variant="info" style={{width:150}}>Ethereum Login</Button>
-                    </Row>
-                </Col>
-            </Row>
-        </div>
-    );
 }
 
 export default Accounts;
