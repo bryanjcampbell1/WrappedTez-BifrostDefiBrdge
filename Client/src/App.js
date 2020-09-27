@@ -55,25 +55,60 @@ const App = () => {
 
   }
 
+  const labels = {
+    marginTop:50,
+    fontSize: 20,
+    color: '#FF6961',
+    fontWeight: 900
+  }
+  
+  const topTitle = {
+    marginTop:50,
+    fontSize: 70,
+    color: '#FF6961',
+    fontWeight: 900
+  }
+  
+  const subTitle = {
+    marginTop:20,
+    fontSize: 22,
+    color: '#16a2b9',
+    fontWeight: 900
+  }
+  const subTitle2 = {
+    marginTop:20,
+    fontSize: 20,
+    color: '#16a2b9',
+    fontWeight: 900
+  }
+
   return (
     <div className="App" style={{backgroundColor:'#fff1c1'}}>
         <div style={{height:20, backgroundColor:'#fe5f55'}}>
 
         </div>
         <Container style={{marginTop: 20}}>
-            <Accounts/>
-            <Row style={{marginTop: 20}}>
+            
+    <p style={topTitle} >Bifrost Baking Token</p>
+    <p style={subTitle} >Cross-Chain Wrapped Tokens Between Tezos and Ethereum </p>
+    <div style={{marginTop:80}}>
+      <p style={subTitle2} >The value of bXTZ grows via Tezos staking rewards!</p>
+      <p style={subTitle2} >Current Ratio    1 bXTZ = 1.5 XTZ</p>
+      <p style={subTitle2} >bTXZ token address: <span style={{border:'2px dashed #fe5f55', padding:'5px'}}>0x31678F57E2F9A416dED24a5684f5eFcce3c69997</span></p>
+    </div>
+            <Row style={{marginTop: 40}}>
                 <Col sm={1} md={2} lg={3}></Col>
                 <Col>
                     <p>Mint bXTZ Tokens</p>
                     <Mint ethWallet={ethWallet} txzWallet={tezosWallet}/>
                     <p style={{marginTop:100}}>Burn bXTZ Tokens</p>
-                    <Burn/>
+                    <Burn ethWallet={ethWallet} txzWallet={tezosWallet}/>
                 </Col>
                 <Col sm={1} md={2} lg={3}></Col>
             </Row>
         </Container>
     </div>
+
   );
 }
 
