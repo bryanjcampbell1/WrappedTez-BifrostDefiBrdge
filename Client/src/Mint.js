@@ -79,7 +79,8 @@ const Mint = ({ethWallet, txzWallet}) => {
         } catch(err) {
             console.error(err);
 		}
-		setLoader(false);
+        setLoader(false);
+        setStep(1);
     }
 
     const box1 = {
